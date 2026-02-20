@@ -15,8 +15,6 @@
         Calculate width: (100% / 16) = 6.25%
         This ensures exactly 16 items fit in one row
     */
-    width: 6.25%;
-    height: 6.25%;
     border: 1px solid #ccc;
     background-color: white;
     display: flex;
