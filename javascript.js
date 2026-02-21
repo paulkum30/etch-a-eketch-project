@@ -2,10 +2,14 @@
 // and append them to the container
 const gridContainer = document.querySelector("#grid-container");
 
+let colorMode = "fixed"; 
+// possible values: "fixed" or "random"
+
+
 const promptButton = document.querySelector(".grid-size");
 const INITIAL_GRID_SIZE = 16;
 
-
+// Function to create grid with given size
 function createGridItems(size) {
     // Clear existing grid items first
     gridContainer.innerHTML = ''; 
@@ -24,6 +28,21 @@ function createGridItems(size) {
         gridContainer.appendChild(gridItem);
     }
 }
+
+
+function getColor() {
+    if (colorMode === "fixed") {
+        return "yellow";
+    }
+
+    if (colorMode === "random") {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+}
+
 
 // prompt user to enter grid size, max value 100
 promptButton.addEventListener("click", () => {
@@ -48,12 +67,27 @@ promptButton.addEventListener("click", () => {
     }
 });
 
+const toggleButton = document.querySelector("#color-toggle");
+
+toggleButton.addEventListener("click", () => {
+    colorMode = colorMode === "fixed" ? "random" : "fixed";
+    console.log("Color mode:", colorMode);
+});
+
+
+// gridContainer.addEventListener('mouseover', event => {
+//     // check if the hovered element matches a grid item
+//     if (event.target.matches('.grid-item')) {
+//         event.target.classList.add("hovered");
+//     }
+// });
+
 gridContainer.addEventListener('mouseover', event => {
-    // check if the hovered element matches a grid item
     if (event.target.matches('.grid-item')) {
-        event.target.classList.add("hovered");
+        event.target.style.backgroundColor = getColor();
     }
 });
+
 
 // Initial grid creation on page load (16x16)
 createGridItems(INITIAL_GRID_SIZE);
